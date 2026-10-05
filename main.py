@@ -11,6 +11,7 @@ from config import TOKEN
 
 from handler.handlers import start
 
+
 from handler.images import (
     gerar_imagem,
     gerar_imagem_nvidia,
@@ -72,6 +73,14 @@ app.add_handler(
         processar_prompt,
     )
 )
+
+
+# Módulo de vídeo: se der erro, só o vídeo é desativado
+try:
+    from video.handlers import register as register_video
+    register_video(app)
+except Exception:
+    logging.exception("Módulo de vídeo desativado por erro")
 
 
 app.run_polling()
