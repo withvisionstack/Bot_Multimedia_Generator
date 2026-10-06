@@ -15,7 +15,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 VIDEO_MODEL = "ltx-2.5"
 VIDEO_RESOLUTION = "480p"
-VIDEO_SECONDS = 3.0
+VIDEO_SECONDS = 10.0
 
 POLL_INTERVAL = 5          # segundos entre consultas
 JOB_TIMEOUT = 600          # 10 min
