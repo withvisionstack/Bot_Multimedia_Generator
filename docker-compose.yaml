@@ -1,35 +1,37 @@
 services:
-bot:
-build:
-context: .
-dockerfile: Dockerfile
-container_name: image_generator_bot
-restart: unless-stopped
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: image_generator_bot
+    restart: unless-stopped
 
-env_file:
-  - .env
+    env_file:
+      - .env
 
-environment:
-  API_URL: http://api:8000
+    environment:
+      API_URL: http://api:8000
 
-depends_on:
-  - api
+    depends_on:
+      - api
 
-mem_limit: 512m
-cpus: 0.5
+    mem_limit: 512m
+    cpus: 0.5
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: image_generator_api
+    restart: unless-stopped
 
-api:
-build:
-context: .
-dockerfile: Dockerfile
-container_name: image_generator_api
-restart: unless-stopped
+    env_file:
+      - .env
 
-env_file:
-  - .env
+    command: uvicorn main:app --app-dir Api --host 0.0.0.0 --port 8000
 
-command: uvicorn Api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
 
-mem_limit: 512m
-cpus: 0.5
+    mem_limit: 512m
+    cpus: 0.5
